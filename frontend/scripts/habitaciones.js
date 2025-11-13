@@ -1,47 +1,63 @@
-async function cargarHabitaciones() {
-    try {
-        const res = await fetch("http://localhost:3000/habitaciones");
-        const data = await res.json();
+const API_URL = "http://localhost:3000/api";
 
-        const tbody = document.getElementById("listaHabitaciones");
-        tbody.innerHTML = "";
-
-        data.forEach(h => {
-            const fila = `
-                <div class="card">
-                    <p><b>Número:</b> ${h.numero}</p>
-                    <p><b>Tipo:</b> ${h.tipo}</p>
-                    <p><b>Capacidad:</b> ${h.capacidad}</p>
-                    <p><b>Precio base:</b> $${h.precio_base}</p>
-                    <p><b>Estado:</b> ${h.estado}</p>
-                </div>
-            `;
-            tbody.innerHTML += fila;
-        });
-
-    } catch (e) {
-        console.error("Error cargando habitaciones:", e);
-    }
-}
-
+// Cuando el DOM está cargado
 document.addEventListener("DOMContentLoaded", () => {
     cargarHabitaciones();
 
-    document.getElementById("formHabitacion")?.addEventListener("submit", async e => {
+    const form = document.getElementById("formHabitacion");
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const numero = e.target[0].value;
-        const tipo = e.target[1].value;
-        const precio = e.target[2].value;
-        const estado = e.target[3].value;
+        const habitacion = {
+            numero: document.getElementById("habNumero").value,
+            tipo: document.getElementById("habTipo").value,
+            capacidad: parseInt(document.getElementById("habCapacidad").value, 10),
+            precioBase: parseFloat(document.getElementById("habPrecio").value),
+            estado: document.getElementById("habEstado").value,
+        };
 
-        await fetch("http://localhost:3000/habitaciones", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ numero, tipo, precio_base: precio, estado })
-        });
+        try {
+            const resp = await fetch(`${API_URL}/habitaciones`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(habitacion)
+            });
 
-        cargarHabitaciones(); // refresca tabla
-        e.target.reset();
+            if (!resp.ok) throw new Error("Error al guardar habitación");
+
+            form.reset();
+            document.getElementById("habEstado").value = "DISPONIBLE";
+            await cargarHabitaciones();
+        } catch (err) {
+            console.error(err);
+            alert("No se pudo guardar la habitación");
+        }
     });
 });
+
+// Cargar tabla
+async function cargarHabitaciones() {
+    try {
+        const resp = await fetch(`${API_URL}/habitaciones`);
+        const habitaciones = await resp.json();
+
+        const tbody = document.getElementById("tablaHabitaciones");
+        tbody.innerHTML = "";
+
+        habitaciones.forEach(h => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${h.id}</td>
+                <td>${h.numero}</td>
+                <td>${h.tipo}</td>
+                <td>${h.capacidad}</td>
+                <td>${h.precioBase}</td>
+                <td>${h.estado}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } catch (err) {
+        console.error(err);
+        alert("No se pudieron cargar las habitaciones");
+    }
+}

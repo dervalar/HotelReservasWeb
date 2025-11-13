@@ -2,38 +2,73 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reservas | Hotel Reservas</title>
-    <link rel="stylesheet" href="./styles/main.css"/>
+    <link rel="stylesheet" href="./styles/main.css" />
 </head>
-
 <body>
-<header>
-    <h1>📅 Reservas del Hotel</h1>
-    <nav>
+    <div class="sidebar">
+        <h2>HOTEL</h2>
         <a href="index.html">🏠 Inicio</a>
-        <a href="habitaciones.html">🏨 Habitaciones</a>
+        <a href="habitaciones.html">🛏 Habitaciones</a>
         <a href="personas.html">👤 Personas</a>
-    </nav>
-</header>
+        <a href="reservas.html">📅 Reservas</a>
+    </div>
 
-<main>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Habitación</th>
-                <th>Persona (DNI)</th>
-                <th>Check In</th>
-                <th>Check Out</th>
-                <th>Monto</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody id="tablaReservas"></tbody>
-    </table>
-</main>
+    <div class="main">
+        <nav>Gestión de Reservas</nav>
 
-<script src="./scripts/reservas.js"></script>
+        <div class="content">
+
+            <!-- Alta de reserva -->
+            <div class="card">
+                <h3>Crear reserva</h3>
+                <form id="formReserva">
+                    <div class="form-grid">
+                        <div>
+                            <label for="resPersona">Persona (DNI)</label>
+                            <select id="resPersona"></select>
+                        </div>
+                        <div>
+                            <label for="resHabitacion">Habitación (número)</label>
+                            <select id="resHabitacion"></select>
+                        </div>
+                        <div>
+                            <label for="resCheckIn">Check-in</label>
+                            <input type="date" id="resCheckIn" required>
+                        </div>
+                        <div>
+                            <label for="resCheckOut">Check-out</label>
+                            <input type="date" id="resCheckOut" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Guardar reserva</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Listado -->
+            <div class="card">
+                <h3>Listado de reservas</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Hab.</th>
+                            <th>Persona</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaReservas"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="./scripts/reservas.js"></script>
 </body>
 </html>

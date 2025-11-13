@@ -2,16 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Habitaciones</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitaciones | Hotel Reservas</title>
+    <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
-
     <div class="sidebar">
         <h2>HOTEL</h2>
         <a href="index.html">🏠 Inicio</a>
         <a href="habitaciones.html">🛏 Habitaciones</a>
-        <a href="personas.html">👥 Personas</a>
+        <a href="personas.html">👤 Personas</a>
         <a href="reservas.html">📅 Reservas</a>
     </div>
 
@@ -19,28 +19,64 @@
         <nav>Gestión de Habitaciones</nav>
 
         <div class="content">
+            <!-- Formulario alta/edición -->
             <div class="card">
-                <h3>Agregar Habitación</h3>
-
+                <h3>Agregar / Editar habitación</h3>
                 <form id="formHabitacion">
-                    <input type="text" placeholder="Número de habitación">
-                    <input type="text" placeholder="Tipo">
-                    <input type="number" placeholder="Precio por noche">
-                    <select>
-                        <option>DISPONIBLE</option>
-                        <option>OCUPADA</option>
-                        <option>CLAUSURADA</option>
-                    </select>
-                    <button>Guardar</button>
+                    <div class="form-grid">
+                        <div>
+                            <label for="habNumero">Número</label>
+                            <input type="text" id="habNumero" required>
+                        </div>
+                        <div>
+                            <label for="habTipo">Tipo</label>
+                            <input type="text" id="habTipo" required>
+                        </div>
+                        <div>
+                            <label for="habCapacidad">Capacidad</label>
+                            <input type="number" id="habCapacidad" min="1" required>
+                        </div>
+                        <div>
+                            <label for="habPrecio">Precio por noche</label>
+                            <input type="number" id="habPrecio" step="0.01" min="0" required>
+                        </div>
+                        <div>
+                            <label for="habEstado">Estado</label>
+                            <select id="habEstado">
+                                <option value="DISPONIBLE">DISPONIBLE</option>
+                                <option value="OCUPADA">OCUPADA</option>
+                                <option value="CLAUSURADA">CLAUSURADA</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Guardar</button>
+                    </div>
                 </form>
             </div>
 
+            <!-- Listado -->
             <div class="card">
-                <h3>Listado de Habitaciones</h3>
-                <div id="listaHabitaciones"></div>
+                <h3>Listado de habitaciones</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Número</th>
+                            <th>Tipo</th>
+                            <th>Capacidad</th>
+                            <th>Precio base</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaHabitaciones"></tbody>
+                </table>
             </div>
         </div>
     </div>
 
+    <!-- IMPORTANTE: este script NO estaba cargando antes -->
+    <script src="./scripts/habitaciones.js"></script>
 </body>
 </html>

@@ -7,31 +7,63 @@
     <link rel="stylesheet" href="./styles/main.css" />
 </head>
 <body>
-
-<header>
-    <h1>👤 Lista de Personas</h1>
-    <nav>
+    <div class="sidebar">
+        <h2>HOTEL</h2>
         <a href="index.html">🏠 Inicio</a>
-        <a href="habitaciones.html">🏨 Habitaciones</a>
+        <a href="habitaciones.html">🛏 Habitaciones</a>
+        <a href="personas.html">👤 Personas</a>
         <a href="reservas.html">📅 Reservas</a>
-    </nav>
-</header>
+    </div>
 
-<main>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>DNI</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-            </tr>
-        </thead>
-        <tbody id="tablaPersonas"></tbody>
-    </table>
-</main>
+    <div class="main">
+        <nav>Gestión de Personas</nav>
 
-<script src="./scripts/personas.js"></script>
+        <div class="content">
+            <div class="card">
+                <h3>Agregar persona</h3>
+                <form id="formPersona">
+                    <div class="form-grid">
+                        <div>
+                            <label for="perDni">DNI</label>
+                            <input type="text" id="perDni" required>
+                        </div>
+                        <div>
+                            <label for="perNombre">Nombre</label>
+                            <input type="text" id="perNombre" required>
+                        </div>
+                        <div>
+                            <label for="perEmail">Email</label>
+                            <input type="email" id="perEmail">
+                        </div>
+                        <div>
+                            <label for="perTelefono">Teléfono</label>
+                            <input type="text" id="perTelefono">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Listado de personas</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPersonas"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="./scripts/personas.js"></script>
 </body>
 </html>

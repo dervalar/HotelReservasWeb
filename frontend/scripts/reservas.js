@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000/api";
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarCombos();
@@ -9,11 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const reserva = {
-            persona_id: parseInt(document.getElementById("resPersona").value, 10),
-            habitacion_id: parseInt(document.getElementById("resHabitacion").value, 10),
-            check_in: document.getElementById("resCheckIn").value,
-            check_out: document.getElementById("resCheckOut").value
-            // monto y estado los puede calcular/poner el backend si querés
+            personaId: parseInt(document.getElementById("resPersona").value),
+            habitacionId: parseInt(document.getElementById("resHabitacion").value),
+            checkIn: document.getElementById("resCheckIn").value,
+            checkOut: document.getElementById("resCheckOut").value
         };
 
         try {
@@ -23,9 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify(reserva)
             });
 
-            if (!resp.ok) {
-                throw new Error("Error al guardar reserva");
-            }
+            if (!resp.ok) throw new Error("Error al guardar reserva");
 
             form.reset();
             await cargarReservas();
@@ -36,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Cargar select de personas + habitaciones
 async function cargarCombos() {
     try {
         const [resPers, resHab] = await Promise.all([
@@ -72,6 +70,7 @@ async function cargarCombos() {
     }
 }
 
+// Cargar tabla de reservas
 async function cargarReservas() {
     try {
         const resp = await fetch(`${API_URL}/reservas`);
@@ -81,20 +80,19 @@ async function cargarReservas() {
         tbody.innerHTML = "";
 
         reservas.forEach(r => {
-            // Adaptá estos nombres según lo que devuelva tu API:
-            // uso nombres típicos: numeroHabitacion, dniPersona, etc.
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>${r.id}</td>
-                <td>${r.numeroHabitacion ?? r.habitacion_id}</td>
-                <td>${r.dniPersona ?? r.persona_id}</td>
-                <td>${r.check_in}</td>
-                <td>${r.check_out}</td>
-                <td>${r.monto ?? ""}</td>
-                <td>${r.estado ?? ""}</td>
+                <td>${r.habitacionId}</td>
+                <td>${r.personaId}</td>
+                <td>${r.checkIn.substring(0,10)}</td>
+                <td>${r.checkOut.substring(0,10)}</td>
+                <td>${r.monto ?? "—"}</td>
+                <td>${r.estado ?? "—"}</td>
             `;
             tbody.appendChild(tr);
         });
+
     } catch (err) {
         console.error(err);
         alert("No se pudieron cargar las reservas");
