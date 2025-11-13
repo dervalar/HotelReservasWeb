@@ -1,28 +1,26 @@
-const apiUrl = "http://localhost:3000/api/personas";
-
 async function cargarPersonas() {
-  try {
-    const response = await fetch(apiUrl);
-    const personas = await response.json();
+    try {
+        const res = await fetch("http://localhost:3000/personas");
+        const data = await res.json();
 
-    const tabla = document.getElementById("tablaPersonas");
-    tabla.innerHTML = "";
+        const tabla = document.getElementById("tablaPersonas");
+        tabla.innerHTML = "";
 
-    personas.forEach(p => {
-      const fila = `
-        <tr>
-          <td>${p.id}</td>
-          <td>${p.nombre}</td>
-          <td>${p.email}</td>
-          <td>${p.telefono}</td>
-          <td>${p.dni}</td>
-        </tr>
-      `;
-      tabla.innerHTML += fila;
-    });
-  } catch (error) {
-    console.error("Error al cargar personas:", error);
-  }
+        data.forEach(p => {
+            tabla.innerHTML += `
+                <tr>
+                    <td>${p.id}</td>
+                    <td>${p.dni}</td>
+                    <td>${p.nombre}</td>
+                    <td>${p.email}</td>
+                    <td>${p.telefono}</td>
+                </tr>
+            `;
+        });
+
+    } catch (e) {
+        console.error("Error cargando personas:", e);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", cargarPersonas);

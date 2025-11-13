@@ -1,30 +1,32 @@
-const apiUrl = "http://localhost:3000/api/reservas";
-
 async function cargarReservas() {
-  try {
-    const response = await fetch(apiUrl);
-    const reservas = await response.json();
+    try {
+        const res = await fetch("http://localhost:3000/reservas");
+        const data = await res.json();
 
-    const tabla = document.getElementById("tablaReservas");
-    tabla.innerHTML = "";
+        const tabla = document.getElementById("tablaReservas");
+        tabla.innerHTML = "";
 
-    reservas.forEach(r => {
-      const fila = `
-        <tr>
-          <td>${r.id}</td>
-          <td>${r.habitacion_id}</td>
-          <td>${r.persona_id}</td>
-          <td>${new Date(r.check_in).toLocaleDateString()}</td>
-          <td>${new Date(r.check_out).toLocaleDateString()}</td>
-          <td>$${r.monto}</td>
-          <td>${r.estado}</td>
-        </tr>
-      `;
-      tabla.innerHTML += fila;
-    });
-  } catch (error) {
-    console.error("Error al cargar reservas:", error);
-  }
+        data.forEach(r => {
+            tabla.innerHTML += `
+                <tr>
+                    <td>${r.id}</td>
+                    <td>${r.habitacion_id}</td>
+                    <td>${r.persona_id}</td>
+                    <td>${formatearFecha(r.check_in)}</td>
+                    <td>${formatearFecha(r.check_out)}</td>
+                    <td>$${r.monto}</td>
+                    <td>${r.estado}</td>
+                </tr>
+            `;
+        });
+
+    } catch (e) {
+        console.error("Error cargando reservas:", e);
+    }
+}
+
+function formatearFecha(f) {
+    return new Date(f).toLocaleDateString("es-AR");
 }
 
 document.addEventListener("DOMContentLoaded", cargarReservas);
