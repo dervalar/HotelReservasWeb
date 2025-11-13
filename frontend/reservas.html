@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reservas | Hotel Reservas</title>
-  <link rel="stylesheet" href="./styles/main.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Reservas | Hotel Reservas</title>
+    <link rel="stylesheet" href="./styles/main.css"/>
 </head>
+
 <body>
-  <header>
-    <h1>📅 Reservas Actuales</h1>
+<header>
+    <h1>📅 Reservas del Hotel</h1>
     <nav>
-      <a href="index.html">Inicio</a>
-      <a href="habitaciones.html">Habitaciones</a>
-      <a href="personas.html">Personas</a>
+        <a href="index.html">🏠 Inicio</a>
+        <a href="habitaciones.html">🏨 Habitaciones</a>
+        <a href="personas.html">👤 Personas</a>
     </nav>
-  </header>
+</header>
 
-  <main>
-    <table border="1" cellspacing="0" cellpadding="10">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Habitación</th>
-          <th>Persona</th>
-          <th>Check-In</th>
-          <th>Check-Out</th>
-          <th>Monto</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody id="tablaReservas"></tbody>
+<main>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Habitación</th>
+                <th>Persona (DNI)</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Monto</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="tablaReservas"></tbody>
     </table>
-  </main>
+</main>
 
-  <script src="./scripts/reservas.js"></script>
+<script src="./scripts/reservas.js"></script>
 </body>
 </html>

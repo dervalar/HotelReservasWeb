@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Habitaciones | Hotel Reservas</title>
-  <link rel="stylesheet" href="./styles/main.css" />
+    <meta charset="UTF-8">
+    <title>Habitaciones</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <header>
-    <h1>🏨 Habitaciones Disponibles</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="personas.html">Personas</a>
-      <a href="reservas.html">Reservas</a>
-    </nav>
-  </header>
 
-  <main>
-    <table border="1" cellspacing="0" cellpadding="10">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Número</th>
-          <th>Tipo</th>
-          <th>Capacidad</th>
-          <th>Precio Base</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody id="tablaHabitaciones"></tbody>
-    </table>
-  </main>
+    <div class="sidebar">
+        <h2>HOTEL</h2>
+        <a href="index.html">🏠 Inicio</a>
+        <a href="habitaciones.html">🛏 Habitaciones</a>
+        <a href="personas.html">👥 Personas</a>
+        <a href="reservas.html">📅 Reservas</a>
+    </div>
 
-  <script src="./scripts/habitaciones.js"></script>
+    <div class="main">
+        <nav>Gestión de Habitaciones</nav>
+
+        <div class="content">
+            <div class="card">
+                <h3>Agregar Habitación</h3>
+
+                <form id="formHabitacion">
+                    <input type="text" placeholder="Número de habitación">
+                    <input type="text" placeholder="Tipo">
+                    <input type="number" placeholder="Precio por noche">
+                    <select>
+                        <option>DISPONIBLE</option>
+                        <option>OCUPADA</option>
+                        <option>CLAUSURADA</option>
+                    </select>
+                    <button>Guardar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Listado de Habitaciones</h3>
+                <div id="listaHabitaciones"></div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Personas | Hotel Reservas</title>
-  <link rel="stylesheet" href="./styles/main.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personas | Hotel Reservas</title>
+    <link rel="stylesheet" href="./styles/main.css" />
 </head>
 <body>
-  <header>
-    <h1>👥 Personas Registradas</h1>
+
+<header>
+    <h1>👤 Lista de Personas</h1>
     <nav>
-      <a href="index.html">Inicio</a>
-      <a href="habitaciones.html">Habitaciones</a>
-      <a href="reservas.html">Reservas</a>
+        <a href="index.html">🏠 Inicio</a>
+        <a href="habitaciones.html">🏨 Habitaciones</a>
+        <a href="reservas.html">📅 Reservas</a>
     </nav>
-  </header>
+</header>
 
-  <main>
-    <table border="1" cellspacing="0" cellpadding="10">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Teléfono</th>
-          <th>DNI</th>
-        </tr>
-      </thead>
-      <tbody id="tablaPersonas"></tbody>
+<main>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>DNI</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody id="tablaPersonas"></tbody>
     </table>
-  </main>
+</main>
 
-  <script src="./scripts/personas.js"></script>
+<script src="./scripts/personas.js"></script>
 </body>
 </html>
