@@ -3,11 +3,12 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
+// Obtener todas las personas
 router.get("/", (req, res) => {
-  db.query("SELECT * FROM persona", (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results);
-  });
+    db.query("SELECT * FROM personas", (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
 });
 
 export default router;
