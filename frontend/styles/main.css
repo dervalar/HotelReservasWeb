@@ -457,3 +457,19 @@ tbody tr:hover {
 #tablaReservas tr:nth-child(even) {
     background-color: #0b1020;
 }
+
+.acciones button {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.btn-edit { color: #4fa3ff; }
+.btn-delete { color: #ff4f4f; }
+
+.edit-status {
+    color: #ffd86b;
+    margin-bottom: 10px;
+}
