@@ -1,99 +1,124 @@
-// backend/routes/reservaRoutes.js
 import express from "express";
 import { db } from "../db.js";
 
 const router = express.Router();
 
-// =============================
-// GET – Todas las reservas
-// =============================
+// =======================
+//  GET: todas las reservas
+// =======================
 router.get("/", (req, res) => {
-    db.query("SELECT * FROM reservas", (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results);
-    });
+  db.query("SELECT * FROM reservas", (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(results);
+  });
 });
 
-// =============================
-// POST – Crear reserva
-// =============================
+// =======================
+//  POST: crear reserva
+// =======================
 router.post("/", (req, res) => {
-    const { habitacion_id, persona_id, check_in, check_out } = req.body;
+  const { persona_id, habitacion_id, check_in, check_out } = req.body;
 
-    if (!habitacion_id || !persona_id || !check_in || !check_out) {
-        return res.status(400).json({ error: "Faltan datos obligatorios" });
+  if (!persona_id || !habitacion_id || !check_in || !check_out) {
+    return res.status(400).json({ error: "Faltan datos para la reserva" });
+  }
+
+  // 1) Obtener precioBase de la habitación
+  const sqlPrecio = "SELECT precioBase FROM habitaciones WHERE id = ?";
+
+  db.query(sqlPrecio, [habitacion_id], (err, precioResult) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!precioResult.length) {
+      return res.status(400).json({ error: "Habitación no encontrada" });
     }
 
-    // Calcular días
-    const dias = (new Date(check_out) - new Date(check_in)) / (1000 * 60 * 60 * 24);
+    const precioBase = precioResult[0].precioBase;
 
-    if (dias <= 0) {
-        return res.status(400).json({ error: "Las fechas no son válidas" });
-    }
+    // 2) Calcular cantidad de noches
+    const dIn = new Date(check_in);
+    const dOut = new Date(check_out);
 
-    // Obtener precio base de la habitación
-    db.query(
-        "SELECT precioBase FROM habitaciones WHERE id=?",
-        [habitacion_id],
-        (err, habResult) => {
-            if (err || habResult.length === 0)
-                return res.status(500).json({ error: "Habitación no encontrada" });
+    const msDia = 1000 * 60 * 60 * 24;
+    let dias = Math.ceil((dOut - dIn) / msDia);
+    if (dias < 1) dias = 1; // al menos 1 noche
 
-            const precioBase = habResult[0].precioBase;
-            const monto = precioBase * dias;
+    const monto = dias * precioBase;
 
-            const sql = `
-                INSERT INTO reservas (habitacionId, personaId, checkIn, checkOut, monto, estado)
-                VALUES (?, ?, ?, ?, ?, 'CONFIRMADA')
-            `;
-
-            db.query(
-                sql,
-                [habitacion_id, persona_id, check_in, check_out, monto],
-                (err, result) => {
-                    if (err) return res.status(500).json({ error: err.message });
-
-                    res.json({ mensaje: "Reserva creada", id: result.insertId });
-                }
-            );
-        }
-    );
-});
-
-// =============================
-// PUT – Editar reserva
-// =============================
-router.put("/:id", (req, res) => {
-    const { id } = req.params;
-    const { habitacion_id, persona_id, check_in, check_out, estado } = req.body;
-
-    const sql = `
-        UPDATE reservas
-        SET habitacionId=?, personaId=?, checkIn=?, checkOut=?, estado=?
-        WHERE id=?
+    // 3) Insertar reserva (incluyendo monto)
+    const sqlInsert = `
+      INSERT INTO reservas (habitacionId, personaId, checkIn, checkOut, monto, estado)
+      VALUES (?, ?, ?, ?, ?, 'CONFIRMADA')
     `;
 
     db.query(
-        sql,
-        [habitacion_id, persona_id, check_in, check_out, estado, id],
-        (err) => {
-            if (err) return res.status(500).json({ error: err.message });
-            res.json({ mensaje: "Reserva actualizada" });
-        }
-    );
-});
-
-// =============================
-// DELETE – Eliminar reserva
-// =============================
-router.delete("/:id", (req, res) => {
-    const { id } = req.params;
-
-    db.query("DELETE FROM reservas WHERE id=?", [id], (err) => {
+      sqlInsert,
+      [habitacion_id, persona_id, check_in, check_out, monto],
+      (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-
-        res.json({ mensaje: "Reserva eliminada" });
-    });
+        res.json({ message: "Reserva creada", id: result.insertId });
+      }
+    );
+  });
 });
 
+// =======================
+//  PUT: editar reserva
+// (todavía no la usás en el front, pero la dejamos lista)
+// =======================
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const { persona_id, habitacion_id, check_in, check_out, estado } = req.body;
+
+  if (!persona_id || !habitacion_id || !check_in || !check_out || !estado) {
+    return res.status(400).json({ error: "Faltan datos para actualizar la reserva" });
+  }
+
+  const sqlPrecio = "SELECT precioBase FROM habitaciones WHERE id = ?";
+
+  db.query(sqlPrecio, [habitacion_id], (err, precioResult) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!precioResult.length) {
+      return res.status(400).json({ error: "Habitación no encontrada" });
+    }
+
+    const precioBase = precioResult[0].precioBase;
+
+    const dIn = new Date(check_in);
+    const dOut = new Date(check_out);
+    const msDia = 1000 * 60 * 60 * 24;
+    let dias = Math.ceil((dOut - dIn) / msDia);
+    if (dias < 1) dias = 1;
+
+    const monto = dias * precioBase;
+
+    const sqlUpdate = `
+      UPDATE reservas
+      SET habitacionId = ?, personaId = ?, checkIn = ?, checkOut = ?, monto = ?, estado = ?
+      WHERE id = ?
+    `;
+
+    db.query(
+      sqlUpdate,
+      [habitacion_id, persona_id, check_in, check_out, monto, estado, id],
+      (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ message: "Reserva actualizada" });
+      }
+    );
+  });
+});
+
+// =======================
+//  DELETE: eliminar reserva
+// =======================
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.query("DELETE FROM reservas WHERE id = ?", [id], (err) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ message: "Reserva eliminada" });
+  });
+});
+
+// 👈 ESTA LÍNEA ES LA QUE FALTABA
 export default router;

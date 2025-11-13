@@ -50,16 +50,18 @@ async function cargarCombos() {
         selPers.innerHTML = "";
         selHab.innerHTML = "";
 
+        // Personas
         personas.forEach(p => {
             const opt = document.createElement("option");
-            opt.value = p.id;
+            opt.value = p.id;       // ESTE ES EL ID CORRECTO
             opt.textContent = `${p.dni} - ${p.nombre}`;
             selPers.appendChild(opt);
         });
 
+        // Habitaciones
         habitaciones.forEach(h => {
             const opt = document.createElement("option");
-            opt.value = h.id;
+            opt.value = h.id;       // ANTES PONÍAS h.numero Y ESO ESTABA MAL
             opt.textContent = `${h.numero} (${h.estado})`;
             selHab.appendChild(opt);
         });
@@ -69,6 +71,7 @@ async function cargarCombos() {
         alert("No se pudieron cargar personas/habitaciones para las reservas");
     }
 }
+
 
 // Cargar tabla de reservas
 async function cargarReservas() {
