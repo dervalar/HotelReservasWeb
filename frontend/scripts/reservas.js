@@ -9,11 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const reserva = {
-            personaId: parseInt(document.getElementById("resPersona").value),
-            habitacionId: parseInt(document.getElementById("resHabitacion").value),
-            checkIn: document.getElementById("resCheckIn").value,
-            checkOut: document.getElementById("resCheckOut").value
-        };
+                persona_id: parseInt(document.getElementById("resPersona").value),
+                habitacion_id: parseInt(document.getElementById("resHabitacion").value),
+                check_in: document.getElementById("resCheckIn").value,
+                check_out: document.getElementById("resCheckOut").value
+};
+
 
         try {
             const resp = await fetch(`${API_URL}/reservas`, {

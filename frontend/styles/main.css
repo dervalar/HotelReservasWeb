@@ -438,3 +438,22 @@ tbody tr:hover {
 .btn-primary:hover {
     background: var(--primary-dark);
 }
+
+/* ===== Tablas de listado: mismo color para todas las filas ===== */
+
+#tablaHabitaciones tr,
+#tablaPersonas tr,
+#tablaReservas tr {
+    background-color: #0b1020;   /* tono azul/violeta oscuro */
+    color: #f9fafb;              /* texto clarito */
+}
+
+/* Anula cualquier zebra-striping previo */
+#tablaHabitaciones tr:nth-child(odd),
+#tablaHabitaciones tr:nth-child(even),
+#tablaPersonas tr:nth-child(odd),
+#tablaPersonas tr:nth-child(even),
+#tablaReservas tr:nth-child(odd),
+#tablaReservas tr:nth-child(even) {
+    background-color: #0b1020;
+}
