@@ -15,8 +15,23 @@
         <a href="reservas.html">📅 Reservas</a>
     </div>
 
+    <div class="sidebar-overlay"></div>
+
     <div class="main">
-        <nav>Gestión de Habitaciones</nav>
+        <nav class="topbar">
+            <button class="icon-button menu-toggle" aria-label="Abrir menú de navegación">
+                &#9776;
+            </button>
+
+            <div class="topbar-title-wrap">
+                <div class="topbar-brand">Hotel Reservas</div>
+                <span class="topbar-subtitle">Gestión de habitaciones</span>
+            </div>
+
+            <button class="icon-button" aria-label="Usuario">
+                <div class="topbar-avatar">👤</div>
+            </button>
+        </nav>
 
         <div class="content">
             <!-- Formulario alta/edición -->
@@ -77,7 +92,7 @@
         </div>
     </div>
 
-    <!-- IMPORTANTE: este script NO estaba cargando antes -->
+    <script src="./scripts/main.js"></script>
     <script src="./scripts/habitaciones.js"></script>
 </body>
 </html>

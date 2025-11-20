@@ -16,9 +16,28 @@
         <a href="reservas.html">📅 Reservas</a>
     </div>
 
+    <!-- Overlay para mobile -->
+    <div class="sidebar-overlay"></div>
+
     <!-- Main -->
     <div class="main">
-        <nav>Panel de administración del hotel</nav>
+        <nav class="topbar">
+            <!-- Botón hamburguesa -->
+            <button class="icon-button menu-toggle" aria-label="Abrir menú de navegación">
+                &#9776;
+            </button>
+
+            <!-- Título central -->
+            <div class="topbar-title-wrap">
+                <div class="topbar-brand">Hotel Reservas</div>
+                <span class="topbar-subtitle">Panel de administración del hotel</span>
+            </div>
+
+            <!-- Icono de usuario -->
+            <button class="icon-button" aria-label="Usuario">
+                <div class="topbar-avatar">👤</div>
+            </button>
+        </nav>
 
         <div class="content">
             <div class="card">
@@ -30,5 +49,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Script del menú -->
+    <script src="./scripts/main.js"></script>
 </body>
+
 </html>

@@ -4,9 +4,9 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-// ===============================
+
 // GET - Todas las habitaciones
-// ===============================
+
 router.get("/", (req, res) => {
   db.query("SELECT * FROM habitaciones", (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -14,9 +14,8 @@ router.get("/", (req, res) => {
   });
 });
 
-// ===============================
 // POST - Crear habitación
-// ===============================
+
 router.post("/", (req, res) => {
   const { numero, tipo, capacidad, precioBase, estado } = req.body;
 
@@ -43,9 +42,9 @@ router.post("/", (req, res) => {
   );
 });
 
-// ===============================
+
 // PUT - Editar habitación
-// ===============================
+
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { numero, tipo, capacidad, precioBase, estado } = req.body;
@@ -70,9 +69,9 @@ router.put("/:id", (req, res) => {
   });
 });
 
-// ===============================
+
 // DELETE - Eliminar habitación
-// ===============================
+
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
