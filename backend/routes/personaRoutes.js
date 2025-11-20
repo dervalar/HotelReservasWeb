@@ -4,9 +4,9 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-// ===============================
+
 // GET - Todas las personas
-// ===============================
+
 router.get("/", (req, res) => {
   db.query("SELECT * FROM personas", (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -14,9 +14,9 @@ router.get("/", (req, res) => {
   });
 });
 
-// ===============================
+
 // POST - Crear persona
-// ===============================
+
 router.post("/", (req, res) => {
   const { dni, nombre, email, telefono } = req.body;
 
@@ -38,9 +38,9 @@ router.post("/", (req, res) => {
   });
 });
 
-// ===============================
+
 // PUT - Editar persona
-// ===============================
+
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { dni, nombre, email, telefono } = req.body;
@@ -64,16 +64,15 @@ router.put("/:id", (req, res) => {
   });
 });
 
-// ===============================
+
 // DELETE - Eliminar persona
-// ===============================
+
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
   db.query("DELETE FROM personas WHERE id = ?", [id], (err, result) => {
     if (err) {
-      // Esto es lo que te está pasando con las personas viejas:
-      // si tienen reservas asociadas, MySQL tira error de FK.
+      
       if (err.code === "ER_ROW_IS_REFERENCED_2") {
         return res.status(400).json({
           error:

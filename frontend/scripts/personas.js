@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ===============================
+
 // Cargar tabla de personas
-// ===============================
+
 async function cargarPersonas() {
   try {
     const resp = await fetch(`${API_URL}/personas`);
@@ -86,9 +86,9 @@ async function cargarPersonas() {
   }
 }
 
-// ===============================
+
 // EDITAR
-// ===============================
+
 function editarPersona(id, dni, nombre, email, telefono) {
   document.getElementById("perDni").value = dni;
   document.getElementById("perNombre").value = nombre;
@@ -102,9 +102,9 @@ function editarPersona(id, dni, nombre, email, telefono) {
     `EDITANDO persona ID ${id} - Guardar para aplicar cambios`;
 }
 
-// ===============================
+
 // ELIMINAR
-// ===============================
+
 async function eliminarPersona(id) {
   if (!confirm("¿Eliminar persona?")) return;
 

@@ -12,7 +12,6 @@ const app = express();
 // Middlewares
 app.use(cors());
 
-// 🔥 ESTA ES LA LÍNEA CLAVE
 // Reemplaza bodyParser por el parser nativo de Express
 app.use(express.json()); 
 

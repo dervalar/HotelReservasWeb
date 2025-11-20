@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", manejarSubmitHabitacion);
 });
 
-// ================================
+
 // SUBMIT (crear / editar)
-// ================================
+
 async function manejarSubmitHabitacion(e) {
   e.preventDefault();
 
@@ -56,12 +56,12 @@ async function manejarSubmitHabitacion(e) {
       });
     }
 
-    // Intentamos leer JSON, pero si viene vacío no rompemos
+    
     let data = null;
     try {
       data = await resp.json();
     } catch (err) {
-      // puede venir sin body, no es grave
+      
     }
 
     if (!resp.ok) {
@@ -84,9 +84,8 @@ async function manejarSubmitHabitacion(e) {
   }
 }
 
-// ================================
 // CARGAR LISTA
-// ================================
+
 async function cargarHabitaciones() {
   try {
     const resp = await fetch(`${API_URL}/habitaciones`);
@@ -117,9 +116,9 @@ async function cargarHabitaciones() {
   }
 }
 
-// ================================
+
 // EDITAR (carga el formulario)
-// ================================
+
 function editarHabitacion(id, numero, tipo, capacidad, precioBase, estado) {
   document.getElementById("habNumero").value = numero;
   document.getElementById("habTipo").value = tipo;
@@ -134,9 +133,9 @@ function editarHabitacion(id, numero, tipo, capacidad, precioBase, estado) {
   if (pStatus) pStatus.textContent = `EDITANDO habitación ID ${id} - Guardar para aplicar cambios`;
 }
 
-// ================================
+
 // ELIMINAR
-// ================================
+
 async function eliminarHabitacion(id) {
   if (!confirm("¿Eliminar habitación?")) return;
 

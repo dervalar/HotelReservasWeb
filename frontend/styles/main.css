@@ -1,6 +1,4 @@
-/* ===========================
-   FUENTE Y PALETA GENERAL
-   =========================== */
+/*FUENTE Y PALETA GENERAL*/
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -30,9 +28,7 @@
     --radius-sm: 8px;
 }
 
-/* ===========================
-   RESET BÁSICO
-   =========================== */
+/*RESET BÁSICO */
 *,
 *::before,
 *::after {
@@ -58,9 +54,7 @@ a {
     text-decoration: none;
 }
 
-/* ===========================
-   LAYOUT GENERAL
-   =========================== */
+/*LAYOUT GENERAL*/
 
 .sidebar {
     width: 250px;
@@ -127,12 +121,8 @@ a {
     background: transparent;
 }
 
-/* ===========================
-   TOPBAR
-   =========================== */
+/*TOPBAR */
 
-/* En tu HTML actual el <nav> es simple dentro de .main.
-   Lo convertimos en una topbar moderna. */
 
 .main > nav {
     height: 72px;
@@ -157,9 +147,7 @@ a {
     text-transform: uppercase;
 }
 
-/* ===========================
-   CONTENIDO
-   =========================== */
+/*CONTENIDO*/
 
 .content {
     padding: 24px 26px 28px;
@@ -192,9 +180,7 @@ a {
     color: var(--text-muted);
 }
 
-/* ===========================
-   FORMULARIOS
-   =========================== */
+/*FORMULARIOS */
 
 form {
     margin-top: 8px;
@@ -284,14 +270,12 @@ button:active,
     justify-content: flex-end;
 }
 
-/* Si tenés más de un botón */
+
 .form-actions button + button {
     margin-left: 10px;
 }
 
-/* ===========================
-   TABLAS
-   =========================== */
+/* TABLAS */
 
 .table {
     width: 100%;
@@ -347,9 +331,7 @@ button:active,
     color: #ef4444;
 }
 
-/* ===========================
-   SCROLLBARS SUAVES
-   =========================== */
+/*  SCROLLBARS SUAVES */
 
 .content::-webkit-scrollbar,
 .sidebar::-webkit-scrollbar {
@@ -367,9 +349,7 @@ button:active,
     border-radius: 999px;
 }
 
-/* ===========================
-   RESPONSIVE
-   =========================== */
+/*RESPONSIVE */
 
 @media (max-width: 1024px) {
     .sidebar {
@@ -448,9 +428,9 @@ button:active,
     }
 }
 
-/* ===========================
-   MENU HAMBURGUESA - MODO MÓVIL
-   =========================== */
+
+   /*MENU HAMBURGUESA - MODO MÓVIL*/
+   
 
 @media (max-width: 900px) {
 
@@ -487,5 +467,145 @@ button:active,
     /* Content debajo de la topbar */
     .main {
         margin-left: 0 !important;
+    }
+}
+
+/*GLASS, SOMBRAS, ANIMACIONES*/
+
+/* Glass suave en topbar y cards */
+.main > nav {
+    backdrop-filter: blur(16px) saturate(135%);
+    -webkit-backdrop-filter: blur(16px) saturate(135%);
+}
+
+.card {
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    /* animación de aparición */
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUpCard 0.45s ease-out forwards;
+}
+
+/* Tablas que acompañan la animación */
+.table {
+    animation: fadeUpCard 0.45s ease-out forwards;
+}
+
+/* Animación base */
+@keyframes fadeUpCard {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Botones más vivos con glow celeste */
+button,
+.btn-primary {
+    transition:
+        transform 0.12s ease-out,
+        box-shadow 0.12s ease-out,
+        filter 0.12s ease-out;
+}
+
+button:hover,
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 16px 34px rgba(37, 99, 235, 0.55),
+        0 0 9px rgba(90, 168, 255, 0.65);
+    filter: brightness(1.03);
+}
+
+button:active,
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+/* Scrollbars finos y modernos */
+body::-webkit-scrollbar,
+.content::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+body::-webkit-scrollbar-thumb,
+.content::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.8);
+    border-radius: 999px;
+}
+
+body::-webkit-scrollbar-track,
+.content::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Estado ACTIVO en la opción de menú actual */
+.sidebar a.active {
+    background: rgba(80, 150, 255, 0.10);
+    border-left: 4px solid #4fa8ff;
+    padding-left: 10px;
+    color: #2563eb;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* Botón hamburguesa más pro + animación al abrir */
+.menu-toggle {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4fa8ff, #2f7fe0);
+    color: #ffffff;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.55);
+    cursor: pointer;
+    transition:
+        transform 0.16s ease-out,
+        box-shadow 0.16s ease-out,
+        filter 0.12s ease-out;
+}
+
+.menu-toggle:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.menu-toggle.open {
+    transform: rotate(90deg) scale(1.05);
+    box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.65),
+        0 14px 30px rgba(37, 99, 235, 0.7);
+}
+
+/* Intensifico un toque el drawer en mobile */
+@media (max-width: 900px) {
+    .sidebar {
+        box-shadow: 18px 0 40px rgba(15, 23, 42, 0.32);
+    }
+
+    .sidebar-mobile-dim {
+        filter: brightness(0.55) blur(3px);
+    }
+}
+
+/* Respeto usuarios con reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
     }
 }

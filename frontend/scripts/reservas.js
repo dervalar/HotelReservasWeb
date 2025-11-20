@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", manejarSubmitReserva);
 });
 
-// ================================
+
 // SUBMIT (crear / editar reserva)
-// ================================
+
 async function manejarSubmitReserva(e) {
   e.preventDefault();
 
@@ -80,9 +80,9 @@ async function manejarSubmitReserva(e) {
   }
 }
 
-// ================================
+
 // CARGAR COMBOS (personas y habitaciones)
-// ================================
+
 async function cargarCombos() {
   try {
     const [respPers, respHab] = await Promise.all([
@@ -118,9 +118,9 @@ async function cargarCombos() {
   }
 }
 
-// ================================
+
 // CARGAR LISTA DE RESERVAS
-// ================================
+
 async function cargarReservas() {
   try {
     const resp = await fetch(`${API_URL}/reservas`);
@@ -157,9 +157,9 @@ async function cargarReservas() {
   }
 }
 
-// ================================
+
 // EDITAR (carga el formulario)
-// ================================
+
 function editarReserva(id, personaId, habitacionId, checkIn, checkOut, estado) {
   document.getElementById("resPersona").value    = personaId;
   document.getElementById("resHabitacion").value = habitacionId;
@@ -175,9 +175,9 @@ function editarReserva(id, personaId, habitacionId, checkIn, checkOut, estado) {
   }
 }
 
-// ================================
+
 // ELIMINAR
-// ================================
+
 async function eliminarReserva(id) {
   if (!confirm("¿Eliminar reserva?")) return;
 

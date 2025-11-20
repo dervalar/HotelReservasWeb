@@ -4,10 +4,9 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-// ===============================
+
 // GET - Todas las reservas
-// (traigo también datos de persona y hab para mostrar lindo)
-// ===============================
+
 router.get("/", (req, res) => {
   const sql = `
     SELECT
@@ -35,7 +34,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// Función auxiliar para calcular monto
+// Función para calcular monto
 function calcularMonto(checkIn, checkOut, precioBase) {
   const dIn = new Date(checkIn);
   const dOut = new Date(checkOut);
@@ -45,10 +44,9 @@ function calcularMonto(checkIn, checkOut, precioBase) {
   return dias * precioBase;
 }
 
-// ===============================
+
 // POST - Crear reserva
-// body: { personaId, habitacionId, checkIn, checkOut }
-// ===============================
+
 router.post("/", (req, res) => {
   const { personaId, habitacionId, checkIn, checkOut } = req.body;
 
@@ -89,10 +87,9 @@ router.post("/", (req, res) => {
   );
 });
 
-// ===============================
+
 // PUT - Editar reserva
-// body: { personaId, habitacionId, checkIn, checkOut, estado }
-// ===============================
+
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { personaId, habitacionId, checkIn, checkOut, estado } = req.body;
@@ -103,7 +100,7 @@ router.put("/:id", (req, res) => {
       .json({ error: "Faltan datos obligatorios para actualizar la reserva" });
   }
 
-  // recalculo el monto igual que en el POST
+  
   db.query(
     "SELECT precioBase FROM habitaciones WHERE id = ?",
     [habitacionId],
@@ -135,9 +132,9 @@ router.put("/:id", (req, res) => {
   );
 });
 
-// ===============================
+
 // DELETE - Eliminar reserva
-// ===============================
+
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
